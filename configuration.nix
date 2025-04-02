@@ -56,7 +56,13 @@
   services.displayManager.sddm.wayland.enable = true;
   services.displayManager.sddm.enable = true;
 
-  # List packages installed in system profile. To search, run:
+  # Env variables  
+  environment.sessionVariables = {
+    FLAKE = "/home/username/dotfiles";
+  };
+
+
+# List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -86,6 +92,10 @@
   nixpkgs-fmt
   nixfmt-rfc-style
   alejandra
+  nixd
+  nvd
+  nix-output-monitor
+  nh
   ];
 
   # Sudo Stuff

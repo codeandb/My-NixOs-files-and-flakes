@@ -23,6 +23,7 @@
      grim
      slurp
      git-credential-manager
+     vscode
    ];
    
    programs.fish.enable = true;
