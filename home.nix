@@ -22,6 +22,7 @@
      waybar
      grim
      slurp
+     git-credential-manager
    ];
    
    programs.fish.enable = true;
@@ -35,6 +36,9 @@
      enable = true;
      userName = "codeandb";
      userEmail = "andersonphang001@gmail.com";
+     extraConfig.credential.helper = "manager";
+     extraConfig.credential."https://github.com".username = "codeandb";
+     extraConfig.credential.credentialStore = "cache"; 
    };
 
    home.stateVersion = "24.11";

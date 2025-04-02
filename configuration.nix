@@ -83,6 +83,9 @@
   fuse
   polkit
   fish
+  nixpkgs-fmt
+  nixfmt-rfc-style
+  alejandra
   ];
 
   # Sudo Stuff
