@@ -24,6 +24,7 @@
      slurp
      git-credential-manager
      vscode
+     nix-prefetch-git
    ];
    
    programs.fish.enable = true;

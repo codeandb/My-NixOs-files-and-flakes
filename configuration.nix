@@ -58,7 +58,7 @@
 
   # Env variables  
   environment.sessionVariables = {
-    FLAKE = "/home/username/dotfiles";
+    FLAKE = "/home/anderson/nixos";
   };
 
 
@@ -96,6 +96,10 @@
   nvd
   nix-output-monitor
   nh
+  nerdfonts
+  font-awesome
+  nix-init
+  nurl
   ];
 
   # Sudo Stuff
