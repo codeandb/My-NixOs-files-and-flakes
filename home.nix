@@ -30,6 +30,7 @@
     adwaita-icon-theme
     tela-icon-theme
     adw-gtk3
+    myrepo.x-cursor-pro
   ];
 
   programs.fish.enable = true;

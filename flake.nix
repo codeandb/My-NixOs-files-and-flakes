@@ -8,14 +8,14 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    #my-repo = {
-    #  url = "github:codeandb/My-Apps/";
+    myrepo = {
+      url = "github:codeandb/My-Apps/";
     #  flake = true;
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, self, ... }: {
     # Please replace my-nixos with your hostname
     nixosConfigurations =  {
       nixos = nixpkgs.lib.nixosSystem {
@@ -33,6 +33,14 @@
             home-manager.users.anderson = import ./home.nix;
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
           }
+        
+        ({
+        nixpkgs.overlays = [
+          (final: prev: {
+            myrepo = inputs.myrepo.packages."${prev.system}";
+          })
+        ];
+        })
       ];
       };
     };

@@ -21,6 +21,26 @@
         "type": "github"
       }
     },
+    "myrepo": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1743774636,
+        "narHash": "sha256-DMwyCnKGmYdlz34uJ/YF3CDU0Cq4/nSRvWc4m6WzxI0=",
+        "owner": "codeandb",
+        "repo": "My-Apps",
+        "rev": "f62ad2c2ea287422b48ed3477f1e07843ad896d8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "codeandb",
+        "repo": "My-Apps",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1743576891,
@@ -40,6 +60,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "myrepo": "myrepo",
         "nixpkgs": "nixpkgs"
       }
     }
