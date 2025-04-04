@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -58,15 +58,11 @@
 
   # Env variables  
   environment.sessionVariables = {
-    FLAKE = "/home/anderson/nixos";
+    FLAKE = "/home/anderson/nixos-config";
   };
 
-
-# List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # Apps and Packages
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
   git
   neovim
   firefox
@@ -100,6 +96,9 @@
   font-awesome
   nix-init
   nurl
+  #(pkgs.callPackage "/home/anderson/Documents/My-Apps/pkgs/rtl8188eu/" { 
+  #  kernel = config.boot.kernelPackages.kernel;
+  #}) 
   ];
 
   # Sudo Stuff
@@ -159,6 +158,13 @@
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
   };
+
+  boot.blacklistedKernelModules = [
+    "rtl8xxxu"       # Example: Disable NVIDIA open-source driver
+    "r8188eu"     # Example: Disable a Realtek WiFi driver
+  ];
+
+  boot.kernelModules = [ "8188eu" "rtl8188eu" "8188eus" "rtl8188eus" "8188" ]; 
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
