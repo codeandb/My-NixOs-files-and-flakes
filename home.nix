@@ -31,19 +31,26 @@
     tela-icon-theme
     adw-gtk3
     myrepo.x-cursor-pro
+    mate.engrampa
+    capitaine-cursors
+    waypaper
+    swaybg
   ];
 
   programs.fish.enable = true;
   programs.fish.shellAliases = {
     ls = "eza -al --group-directories-first --icons";
     vim = "nvim";
+    gitcompush = "git commit -a && git push";
+    nixrebuild = "nh os switch --update";
+    nixupdate = "sudo nixos-rebuild switch --upgrade";
   };
 
   # Theming
   gtk.enable = true;
 
-  #gtk.cursorTheme.package = pkgs.bibata-cursors;
-  #gtk.cursorTheme.name = "Bibata-Modern-Ice";
+  gtk.cursorTheme.package = pkgs.myrepo.x-cursor-pro;
+  gtk.cursorTheme.name = "XCursor-Pro-Dark";
 
   gtk.theme.package = pkgs.adw-gtk3;
   gtk.theme.name = "adw-gtk3";

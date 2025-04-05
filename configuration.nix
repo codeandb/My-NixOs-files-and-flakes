@@ -96,9 +96,6 @@
   font-awesome
   nix-init
   nurl
-  #(pkgs.callPackage "/home/anderson/Documents/My-Apps/pkgs/rtl8188eu/" { 
-  #  kernel = config.boot.kernelPackages.kernel;
-  #}) 
   ];
 
   # Sudo Stuff
@@ -155,13 +152,12 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
     #jack.enable = true;
   };
 
   boot.blacklistedKernelModules = [
-    "rtl8xxxu"       # Example: Disable NVIDIA open-source driver
-    "r8188eu"     # Example: Disable a Realtek WiFi driver
+    "rtl8xxxu"     
+    "r8188eu"     
   ];
 
   boot.kernelModules = [ "8188eu" "rtl8188eu" "8188eus" "rtl8188eus" "8188" ]; 
