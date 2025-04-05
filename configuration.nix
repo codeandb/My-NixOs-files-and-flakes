@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
@@ -92,11 +92,11 @@
   nvd
   nix-output-monitor
   nh
-  nerdfonts
-  font-awesome
   nix-init
   nurl
   ];
+
+  fonts.packages = [ pkgs.font-awesome ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
   # Sudo Stuff
   security.sudo = {

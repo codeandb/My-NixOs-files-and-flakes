@@ -21,7 +21,6 @@
     btop
     pavucontrol
     nwg-look
-    nerdfonts
     waybar
     grim
     slurp
@@ -42,6 +41,8 @@
     fastfetch
   ];
 
+  fonts.fontconfig.enable = true;
+
   programs.fish.enable = true;
   programs.fish.shellAliases = {
     ls = "eza -al --group-directories-first --icons";
@@ -57,8 +58,8 @@
   gtk.cursorTheme.package = pkgs.myrepo.x-cursor-pro;
   gtk.cursorTheme.name = "XCursor-Pro-Dark";
 
-  lib.mkForce.gtk.theme.package = pkgs.adw-gtk3;
-  gtk.theme.name = "adw-gtk3";
+ # lib.mkForce.gtk.theme.package = pkgs.adw-gtk3;
+ # gtk.theme.name = "adw-gtk3";
 
   gtk.iconTheme.package = pkgs.tela-icon-theme;
   gtk.iconTheme.name = "Tela-black-dark";
