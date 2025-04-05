@@ -35,6 +35,7 @@
     capitaine-cursors
     waypaper
     swaybg
+    clipse
   ];
 
   programs.fish.enable = true;
