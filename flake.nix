@@ -13,6 +13,7 @@
     #  flake = true;
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix.url = "github:danth/stylix/release-24.11";
   };
 
   outputs = inputs@{ nixpkgs, home-manager, self, ... }: {
@@ -25,7 +26,6 @@
         # Import the previous configuration.nix we used,
         # so the old configuration file still takes effect
         ./configuration.nix
-  	    
         home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -33,7 +33,6 @@
             home-manager.users.anderson = import ./home.nix;
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
           }
-        
         ({
         nixpkgs.overlays = [
           (final: prev: {
@@ -41,6 +40,7 @@
           })
         ];
         })
+        inputs.stylix.nixosModules.stylix
       ];
       };
     };

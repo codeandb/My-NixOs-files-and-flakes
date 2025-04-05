@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   home.username = "anderson";
@@ -36,6 +37,9 @@
     waypaper
     swaybg
     clipse
+    wl-clipboard
+    lunar-client
+    fastfetch
   ];
 
   programs.fish.enable = true;
@@ -53,7 +57,7 @@
   gtk.cursorTheme.package = pkgs.myrepo.x-cursor-pro;
   gtk.cursorTheme.name = "XCursor-Pro-Dark";
 
-  gtk.theme.package = pkgs.adw-gtk3;
+  lib.mkForce.gtk.theme.package = pkgs.adw-gtk3;
   gtk.theme.name = "adw-gtk3";
 
   gtk.iconTheme.package = pkgs.tela-icon-theme;
