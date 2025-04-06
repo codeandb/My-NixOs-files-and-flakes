@@ -2,8 +2,6 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
-
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -49,9 +47,6 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # Enable Flakes and experimental Nix CLI
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   # SDDM
   services.displayManager.sddm.wayland.enable = true;
   services.displayManager.sddm.enable = true;
@@ -59,6 +54,21 @@
   # Env variables  
   environment.sessionVariables = {
     FLAKE = "/home/anderson/nixos-config";
+  };
+
+ # Nix Settings
+  nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      auto-optimise-store = true;
+      substituters = ["https://hyprland.cachix.org"];
+      trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 1w";
+    };
   };
 
   # Apps and Packages
@@ -96,7 +106,9 @@
   nurl
   ];
 
-  fonts.packages = [ pkgs.font-awesome ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+  fonts.packages = with pkgs; [ 
+    font-awesome 
+  ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
   # Sudo Stuff
   security.sudo = {
@@ -106,7 +118,7 @@
     '';
   };
 
-  # Stylix For Styling the System
+  # Stylix
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
   stylix.image = pkgs.fetchurl {
@@ -118,7 +130,13 @@
   programs.fish.enable = true;
 
   # Hyprland
-  programs.hyprland.enable = true;
+  programs.hyprland = {
+    enable = true;
+        # set the flake package
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    # make sure to also set the portal package, so that they are in sync
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  };
 
   # File Management
   services.gvfs.enable = true;
@@ -145,13 +163,6 @@
 
     # Limit the number of generations to keep
   boot.loader.grub.configurationLimit = 10;
-  # Perform garbage collection weekly to maintain low disk usage
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 1w";
-  };
-  nix.settings.auto-optimise-store = true;
 
     # rtkit is optional but recommended
   security.rtkit.enable = true;

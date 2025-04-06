@@ -14,6 +14,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix.url = "github:danth/stylix";
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = inputs@{ nixpkgs, home-manager, self, ... }: {
@@ -21,7 +22,7 @@
     nixosConfigurations =  {
       nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      #specialArgs = { inherit my-repo; };
+      specialArgs = { inherit inputs; };
       modules = [
         # Import the previous configuration.nix we used,
         # so the old configuration file still takes effect

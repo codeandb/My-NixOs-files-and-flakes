@@ -39,6 +39,8 @@
     wl-clipboard
     lunar-client
     fastfetch
+    neofetch
+    prismlauncher
   ];
 
   fonts.fontconfig.enable = true;
