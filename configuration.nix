@@ -80,11 +80,8 @@
   firefox
   kitty
   linuxKernel.packages.linux_6_6.rtl8188eus-aircrack
-  nix-output-monitor
   usbutils
   pciutils
-  rofi
-  mate.caja
   mate.mate-polkit
   gvfs
   unzip
@@ -97,15 +94,6 @@
   fuse
   polkit
   fish
-  nixpkgs-fmt
-  nixfmt-rfc-style
-  alejandra
-  nixd
-  nvd
-  nix-output-monitor
-  nh
-  nix-init
-  nurl
   ];
 
   fonts.packages = with pkgs; [ 

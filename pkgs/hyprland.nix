@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 let 
   autostart = pkgs.writeShellScriptBin "autostart" ''
@@ -11,16 +11,26 @@ let
   clipse -listen &
   '';
 
+  SSArea = pkgs.writeShellScriptBin "SSArea" ''
+  #!/bin/sh
+  grim -g "$(slurp)" $HOME/Pictures/$(date +'%s_grim.png')
+  '';
+
+  SSAll = pkgs.writeShellScriptBin "SSAll" ''
+  #!/bin/sh
+  grim $HOME/Pictures/$(date +'%s_grim.png')
+  '';
+
 in {
   wayland.windowManager.hyprland = {
     enable = true;
     package = null;
     portalPackage = null;
-    #plugins = [
-    #  inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprbars
-    #  inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprtrails
-    #  inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.dwindle-autogroup
-    #];
+    plugins = [
+      #pkgs.hyprlandPlugins.hyprbars
+      #inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprbars
+      #inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.dwindle-autogroup
+    ];
     # set the flake package
 
     settings = {
@@ -101,6 +111,8 @@ in {
         "$mainMod, E, exec, $fileManager"
         "$mainMod, SPACE, togglefloating,"
         "$mainMod, R, exec, $menu"
+        "SUPER_SHIFT, S, exec, ${SSArea}/bin/SSArea"
+        "$mainMod, print, exec, ${SSAll}/bin/SSAll"
         "$mainMod, F, fullscreen, 0"
         "$mainMod, J, togglesplit, "
         "$mainMod, left, movefocus, l"
@@ -154,9 +166,6 @@ in {
         "size 400 400, class:(clipse)"
         "suppressevent maximize, class:.*"# You'll probably like this
       ];
-
-
-
     };
   };
 }

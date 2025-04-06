@@ -21,7 +21,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, self, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, self, hyprland-plugins, ... }: {
     # Please replace my-nixos with your hostname
     nixosConfigurations =  {
       nixos = nixpkgs.lib.nixosSystem {
@@ -31,7 +31,7 @@
         # Import the previous configuration.nix we used,
         # so the old configuration file still takes effect
         ./configuration.nix
-        home-manager.nixosModules.home-manager
+	home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
