@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   home.username = "anderson";
@@ -44,6 +45,11 @@
   ];
 
   fonts.fontconfig.enable = true;
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+    # set the flake package
+    };
 
   programs.fish.enable = true;
   programs.fish.shellAliases = {
