@@ -59,10 +59,14 @@
     nix-output-monitor
     fishPlugins.grc
     grc
+    lunarvim
+    protonvpn-gui
+    cmake
   ];
 
   fonts.fontconfig.enable = true;
 
+  # Fish
   programs.fish = { 
     enable = true;
     shellAliases = {
@@ -71,6 +75,7 @@
       gitcompush = "git commit -a && git push";
       nixrebuild = "nh os switch --update";
       nixupgrade = "sudo nixos-rebuild switch --upgrade";
+      emacs = "emacsclient -c -a 'emacs'";
     };
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
@@ -79,6 +84,20 @@
     { name = "grc"; src = pkgs.fishPlugins.grc; }
     ];
   };
+
+  programs.btop = {
+    enable = true;
+    settings = {
+      theme_background = false;
+    };
+  };
+
+  #programs.waybar = {
+  #  enable = true;
+  #};
+  #lib.mkForce.xdg.configFile."waybar/config".source = ./assets/waybar/config;
+  #lib.mkForce.xdg.configFile."waybar/style.css".source = ./assets/waybar/style.css;
+  #lib.mkForce.xdg.configFile."waybar/scripts/".source = ./assets/waybar/scripts;
 
   # Theming
   gtk.enable = true;

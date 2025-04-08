@@ -73,6 +73,13 @@
     };
   };
 
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+      sha256 = "1x2q47bzw2j97c6xvxixzp2skyavivm928wl7p83z9scdwcf7ryr";
+    }))
+  ];
+
   # Apps and Packages
   environment.systemPackages = with pkgs; [
   git
@@ -94,6 +101,14 @@
   fuse
   polkit
   fish
+  cachix
+  emacs
+  ripgrep
+  coreutils
+  fd
+  clang
+  cmake
+  libtool
   ];
 
   fonts.packages = with pkgs; [ 

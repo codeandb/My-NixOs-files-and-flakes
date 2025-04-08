@@ -9,6 +9,7 @@ let
   dunst &
   hyprctl setcursor XCursor-Pro-Dark 20 &
   clipse -listen &
+  emacs --daemon &
   '';
 
   SSArea = pkgs.writeShellScriptBin "SSArea" ''
@@ -141,6 +142,7 @@ in {
         "$mainMod SHIFT, 0, movetoworkspace, 10"
         "$mainMod, mouse_down, workspace, e+1"
         "$mainMod, mouse_up, workspace, e-1"
+        "SUPER, V, exec, kitty --class clipse -e clipse"
       ];
 
       bindm = [
@@ -160,6 +162,7 @@ in {
       windowrule = [
         "float, class:(clipse)"
         "stayfocused, class:(clipse)"
+        "opacity 0.8 0.8, class:Emacs"
       ];
 
       windowrulev2 = [
