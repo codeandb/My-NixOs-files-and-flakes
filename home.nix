@@ -102,7 +102,7 @@
     genericName = "Caja";
     exec = "caja";
     type = "Application";
-    icon = "󰲃";
+    icon = ./assets/cajaicon.png;
   };
 
   # Theming
