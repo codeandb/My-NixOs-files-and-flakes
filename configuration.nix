@@ -109,6 +109,7 @@
   clang
   cmake
   libtool
+  flatpak
   ];
 
   fonts.packages = with pkgs; [ 

@@ -27,7 +27,7 @@
     nwg-look
     waybar
     grim
-    rofi-wayland
+    rofi
     slurp
     git-credential-manager
     vscode
@@ -92,12 +92,18 @@
     };
   };
 
-  #programs.waybar = {
-  #  enable = true;
-  #};
-  #lib.mkForce.xdg.configFile."waybar/config".source = ./assets/waybar/config;
-  #lib.mkForce.xdg.configFile."waybar/style.css".source = ./assets/waybar/style.css;
-  #lib.mkForce.xdg.configFile."waybar/scripts/".source = ./assets/waybar/scripts;
+  programs.rofi = {
+    enable = true;
+  };
+
+  # Caja
+  xdg.desktopEntries.caja = {
+    name = "Caja";
+    genericName = "Caja";
+    exec = "caja";
+    type = "Application";
+    icon = "󰲃";
+  };
 
   # Theming
   gtk.enable = true;

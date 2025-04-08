@@ -1,27 +1,28 @@
-{ inputs, pkgs, ... }:
-
-let 
+{
+  inputs,
+  pkgs,
+  ...
+}: let
   autostart = pkgs.writeShellScriptBin "autostart" ''
-  #!/bin/sh
-  waybar &
-  waypaper --restore &
-  /nix/store/$(ls -la /nix/store | grep 'mate-polkit' | grep '4096' | awk '{print $9}' | sed -n '$p')/libexec/polkit-mate-authentication-agent-1 & 
-  dunst &
-  hyprctl setcursor XCursor-Pro-Dark 20 &
-  clipse -listen &
-  emacs --daemon &
+    #!/bin/sh
+    waybar &
+    waypaper --restore &
+    /nix/store/$(ls -la /nix/store | grep 'mate-polkit' | grep '4096' | awk '{print $9}' | sed -n '$p')/libexec/polkit-mate-authentication-agent-1 &
+    dunst &
+    hyprctl setcursor XCursor-Pro-Dark 20 &
+    clipse -listen &
+    emacs --daemon &
   '';
 
   SSArea = pkgs.writeShellScriptBin "SSArea" ''
-  #!/bin/sh
-  grim -g "$(slurp)" $HOME/Pictures/$(date +'%s_grim.png')
+    #!/bin/sh
+    grim -g "$(slurp)" $HOME/Pictures/$(date +'%s_grim.png')
   '';
 
   SSAll = pkgs.writeShellScriptBin "SSAll" ''
-  #!/bin/sh
-  grim $HOME/Pictures/$(date +'%s_grim.png')
+    #!/bin/sh
+    grim $HOME/Pictures/$(date +'%s_grim.png')
   '';
-
 in {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -38,7 +39,7 @@ in {
       # Environment Variables
       "$terminal" = "kitty";
       "$fileManager" = "pcmanfm";
-      "$menu" = "rofi -show drun";
+      "$menu" = "rofi -show drun -show-icons";
       #$scripts = ~/.config/hypr/scripts
       "$mainMod" = "SUPER";
 
@@ -167,7 +168,7 @@ in {
 
       windowrulev2 = [
         "size 400 400, class:(clipse)"
-        "suppressevent maximize, class:.*"# You'll probably like this
+        "suppressevent maximize, class:.*" # You'll probably like this
       ];
     };
   };
