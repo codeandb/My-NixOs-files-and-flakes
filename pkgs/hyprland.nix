@@ -26,13 +26,8 @@
 in {
   wayland.windowManager.hyprland = {
     enable = true;
-    package = null;
-    portalPackage = null;
-    plugins = [
-      #pkgs.hyprlandPlugins.hyprbars
-      #inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprbars
-      #inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.dwindle-autogroup
-    ];
+    #package = null;
+    #portalPackage = null;
     # set the flake package
 
     settings = {
@@ -44,6 +39,9 @@ in {
       "$mainMod" = "SUPER";
 
       exec-once = "${autostart}/bin/autostart";
+      debug = {
+        disable_logs = false;
+      };
 
       env = [
         "XCURSOR_SIZE,20"
@@ -93,7 +91,8 @@ in {
 
       misc = {
         force_default_wallpaper = -1;
-        disable_hyprland_logo = false;
+       # disable_hyprland_logo = false;
+        enable_anr_dialog = false;
       };
 
       input = {
@@ -107,7 +106,7 @@ in {
 
       # Keybinds
       bind = [
-        "$mainMod, RETURN, exec, $terminal"
+        "$mainMod, RETURN, exec, $terminal zellij"
         "SUPER_SHIFT, C, killactive,"
         "SUPER_SHIFT, Q, exit,"
         "$mainMod, E, exec, $fileManager"
@@ -168,6 +167,7 @@ in {
 
       windowrulev2 = [
         "size 400 400, class:(clipse)"
+        "noblur,class:^(Microsoft-edge)$"
         "suppressevent maximize, class:.*" # You'll probably like this
       ];
     };

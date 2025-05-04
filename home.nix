@@ -4,7 +4,8 @@
   lib,
   inputs,
   ...
-}: {
+}: 
+  {
   home.username = "anderson";
   home.homeDirectory = "/home/anderson";
 
@@ -62,6 +63,20 @@
     lunarvim
     protonvpn-gui
     cmake
+    flatpak
+    stow
+    tmux
+    inkscape
+    microsoft-edge
+    zellij
+    unrar
+    mcpelauncher-ui-qt
+    zenity
+    pcsx2
+    wineWowPackages.stable
+    winetricks
+    gtk3
+    helix
   ];
 
   fonts.fontconfig.enable = true;
@@ -94,6 +109,25 @@
 
   programs.rofi = {
     enable = true;
+  };
+
+  lib.mkForce.programs.kitty = {
+    enable = true;
+    settings = {
+      linux_display_server = "wayland";
+      wayland_titlebar_color = "background";
+      font_family = "Fira Code";
+      bold_font = "auto";
+      italic_font = "auto";
+      bold_italic_font = "auto";
+      font_size = 11;
+      background_opacity = 0.8;
+      # window settings
+      initial_window_width = "95c";
+      initial_window_height = "35c";
+      window_padding_width = 0;
+      confirm_os_window_close = 0;
+    };
   };
 
   # Caja

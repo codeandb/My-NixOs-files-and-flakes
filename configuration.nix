@@ -8,7 +8,9 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.nix-minecraft.nixosModules.minecraft-servers
     ];
+  #nixpkgs.overlays = [ inputs.nix-minecraft.overlay ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
@@ -41,7 +43,7 @@
   users.users.anderson = {
     isNormalUser = true;
     description = "anderson phang";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" "storage" ];
+    extraGroups = [ "networkmanager" "plugdev" "wheel" "video" "audio" "storage" "openrazer" ];
     shell = pkgs.fish;
     packages = with pkgs; [];
   };
@@ -109,11 +111,16 @@
   clang
   cmake
   libtool
-  flatpak
+  polychromatic
+  xdg-desktop-portal-gtk
+  xdg-desktop-portal
+  zulu23
   ];
 
   fonts.packages = with pkgs; [ 
-    font-awesome 
+    font-awesome
+    fira
+    fira-code
   ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 
   # Sudo Stuff
@@ -124,6 +131,8 @@
     '';
   };
 
+  programs.nix-ld.enable = true;
+
   # Stylix
   stylix.enable = true;
   stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
@@ -131,6 +140,8 @@
     url = "https://www.pixelstalk.net/wp-content/uploads/2016/05/Epic-Anime-Awesome-Wallpapers.jpg";
     sha256 = "enQo3wqhgf0FEPHj2coOCvo7DuZv+x5rL/WIo4qPI50=";
   };
+
+  services.flatpak.enable = true;
 
   # Fish Stuff
   programs.fish.enable = true;
@@ -142,6 +153,28 @@
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     # make sure to also set the portal package, so that they are in sync
     portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+  };
+  
+  # Gaming
+  hardware.openrazer.enable = true;
+  services.minecraft-servers = {
+    enable = true;
+    eula = true;
+    servers.fabric = {
+     # skibiddyserver = {
+        enable = true;
+	package = pkgs.fabricServers.fabric-1_21_5;
+	serverProperties = {
+          gamemode = "survival";
+          simulation-distance = 8;
+         online-mode = false;
+    	};
+	#symlinks = {
+	#  "mods" = ./mods;
+	#};
+        jvmOpts = "-Xms1G -Xmx2G -XX:+UseG1GC ";
+      #};
+    };
   };
 
   # File Management
@@ -189,11 +222,11 @@
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
+  programs.mtr.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 
   # List services that you want to enable:
 

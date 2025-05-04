@@ -19,9 +19,10 @@
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, self, hyprland-plugins, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, self, hyprland, hyprland-plugins, nix-minecraft, ... }: {
     # Please replace my-nixos with your hostname
     nixosConfigurations =  {
       nixos = nixpkgs.lib.nixosSystem {
@@ -31,18 +32,22 @@
         # Import the previous configuration.nix we used,
         # so the old configuration file still takes effect
         ./configuration.nix
-	home-manager.nixosModules.home-manager
+	#./minecraft.nix
+	nix-minecraft.nixosModules.minecraft-servers
+        home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.anderson = import ./home.nix;
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+	    home-manager.extraSpecialArgs = {inherit inputs;};
           }
         ({
         nixpkgs.overlays = [
           (final: prev: {
             myrepo = inputs.myrepo.packages."${prev.system}";
           })
+          inputs.nix-minecraft.overlay
         ];
         })
         inputs.stylix.nixosModules.stylix
