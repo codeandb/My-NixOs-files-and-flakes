@@ -37,7 +37,6 @@
     tela-icon-theme
     adw-gtk3
     myrepo.x-cursor-pro
-    mate.engrampa
     capitaine-cursors
     waypaper
     swaybg
@@ -60,12 +59,10 @@
     nix-output-monitor
     fishPlugins.grc
     grc
-    lunarvim
     protonvpn-gui
     cmake
     flatpak
     stow
-    tmux
     inkscape
     microsoft-edge
     zellij
@@ -77,6 +74,10 @@
     winetricks
     gtk3
     helix
+    peazip
+    easyeffects
+    sqlitebrowser
+    cpu-x
   ];
 
   fonts.fontconfig.enable = true;

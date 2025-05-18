@@ -32,8 +32,7 @@
         # Import the previous configuration.nix we used,
         # so the old configuration file still takes effect
         ./configuration.nix
-	#./minecraft.nix
-	nix-minecraft.nixosModules.minecraft-servers
+	      nix-minecraft.nixosModules.minecraft-servers
         home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
